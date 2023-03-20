@@ -8,7 +8,6 @@ import { getSuggestedVideos } from "../../api/videoApi";
 import { addSuddestedVido } from "../../reduser/videosReduser";
 
 function Ribbon() {
-  const suggestedVideos = useSelector((state) => state.videos);
   const [categorySelect, setCategorySelect] = useState("New");
 
   const dispatch = useDispatch();

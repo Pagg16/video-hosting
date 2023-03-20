@@ -1,0 +1,20 @@
+.videoItem__card {
+  width: 358px;
+  height: 180px;
+}
+
+.videoItem__card-content {
+  background-color: #1e1e1e;
+  height: 106px;
+}
+
+.videoItem__card-typography {
+  font-weight: bold;
+  color: gray;
+}
+
+.videoItem__card-checkCircle {
+  font-size: 12px;
+  color: gray;
+  margin-left: 5px;
+}
