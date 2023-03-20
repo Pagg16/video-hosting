@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import "./ribbon.css";
+import SidePanel from "../SidePanel/SidePanel";
+import Video from "../Video/Video";
 
 function Ribbon() {
   return (
@@ -21,6 +23,7 @@ function Ribbon() {
           },
         }}
       >
+        <SidePanel />
         <Typography
           className="ribbon__copiright"
           variant="body2"
@@ -28,6 +31,18 @@ function Ribbon() {
         >
           Copiright 2023 video-hosting
         </Typography>
+
+        <Box pt={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            mb={2}
+            sx={{ color: "white" }}
+          >
+            <span className="">video</span>
+          </Typography>
+          <Video />
+        </Box>
       </Box>
     </Stack>
   );
