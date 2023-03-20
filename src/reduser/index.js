@@ -9,5 +9,5 @@ const rootReduser = combineReducers({
 
 export const store = createStore(
   rootReduser,
-  compose(applyMiddleware(thunk, composeWithDevTools))
+  compose(applyMiddleware(thunk), composeWithDevTools())
 );

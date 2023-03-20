@@ -7,7 +7,7 @@ import Video from "../Video/Video";
 import { getSuggestedVideos } from "../../action/videoApi";
 
 function Ribbon() {
-  const SuggestedVideos = useSelector((state) => state.videos);
+  const suggestedVideos = useSelector((state) => state.videos);
   const [categorySelect, setCategorySelect] = useState("New");
 
   const dispatch = useDispatch();

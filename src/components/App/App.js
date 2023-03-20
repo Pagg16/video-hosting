@@ -1,20 +1,18 @@
-import logo from "./logo.svg";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Box } from "@mui/material";
-import "./App.css";
 
-import Navbar from "./components/Navbar/Navbar";
-import Ribbon from "./components/Ribbon/Ribbon";
-import ChannelDetail from "./components/ChannelDetail/ChannelDetail";
-import Video from "./components/Video/Video";
-import SearchRibbon from "./components/SearchRibbon/SearchRibbon";
+import Navbar from "../Navbar/Navbar";
+import Ribbon from "../Ribbon/Ribbon";
+import ChannelDetail from "../ChannelDetail/ChannelDetail";
+import Video from "../Video/Video";
+import SearchRibbon from "../SearchRibbon/SearchRibbon";
 
 function App() {
   return (
     <div className="app">
       <Box sx={{ backgroundColor: "#000" }}>
+        <Navbar />
         <Routes>
-          <Navbar />
           <Route path="/" exact element={<Ribbon />} />
           <Route path="/video/:id" element={<Video />} />
           <Route path="/channel/:id" element={<ChannelDetail />} />

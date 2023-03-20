@@ -18,7 +18,7 @@ function SidePanel({ setCategorySelect, categorySelect }) {
         <button
           key={elem.name}
           className="sidePanel__category-btn"
-          onClick={setCategorySelect(elem.name)}
+          onClick={() => setCategorySelect(elem.name)}
         >
           <span className="sidePanel__category-icon">{elem.icon}</span>
           <span className="sidePanel__category-name">{elem.name}</span>
