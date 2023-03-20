@@ -14,7 +14,7 @@ function Video() {
       {suggestedVideos?.map((elem, index) => (
         <Box key={index}>
           {elem.id.videoId && <VideoItem video={elem} />}
-          {elem.id.channelId && <ChannelItem video={elem} />}
+          {elem.id.channelId && <ChannelItem channel={elem} />}
         </Box>
       ))}
     </Stack>

@@ -1,0 +1,31 @@
+.channelItem {
+  box-shadow: none;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 326px;
+  margin: auto;
+}
+
+.channelItem__cardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.channelItem__cardMedia {
+  border-radius: 50%;
+  height: 180px;
+  width: 180px;
+  margin-bottom: 2px;
+  border: 1px solid #e3e3e3;
+}
+
+.channelItem__checkCircle {
+  font-size: 14;
+  color: gray;
+  margin-left: 5px;
+}
