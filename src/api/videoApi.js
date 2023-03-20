@@ -20,13 +20,5 @@ export function getSuggestedVideos(categorySelect) {
     headers: headersOption,
   };
 
-  return async (dispatch) => {
-    try {
-      const response = await axios.request(options);
-      console.log(response);
-      dispatch(addSuddestedVido(response.data));
-    } catch (e) {
-      alert(e);
-    }
-  };
+  return axios.request(options);
 }

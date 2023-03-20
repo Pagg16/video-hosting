@@ -4,7 +4,8 @@ import "./ribbon.css";
 import { useSelector, useDispatch } from "react-redux";
 import SidePanel from "../SidePanel/SidePanel";
 import Video from "../Video/Video";
-import { getSuggestedVideos } from "../../action/videoApi";
+import { getSuggestedVideos } from "../../api/videoApi";
+import { addSuddestedVido } from "../../reduser/videosReduser";
 
 function Ribbon() {
   const suggestedVideos = useSelector((state) => state.videos);
@@ -13,7 +14,10 @@ function Ribbon() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getSuggestedVideos(categorySelect));
+    getSuggestedVideos(categorySelect)
+      .then((res) => res.data)
+      .then((resData) => dispatch(addSuddestedVido(resData)))
+      .catch((e) => alert(e));
   }, [categorySelect]);
 
   return (
