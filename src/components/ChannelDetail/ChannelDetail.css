@@ -1,0 +1,14 @@
+.channelDetail {
+  min-height: 95vh;
+}
+
+.channelDetail__gradient {
+  background-color: red;
+  z-index: 10;
+  height: 300px;
+}
+
+.channelDetail__video-container {
+  display: flex;
+  padding: 2px;
+}

@@ -8,6 +8,10 @@
   margin: auto;
 }
 
+.channelItem-channelDetail {
+  margin-top: -93px;
+}
+
 .channelItem__cardContent {
   display: flex;
   flex-direction: column;

@@ -5,9 +5,14 @@ import { Link } from "react-router-dom";
 import "./channelItem.css";
 import { demoProfilePicture } from "../../utils/constans";
 
-function ChannelItem({ channel }) {
+function ChannelItem({ channel, channelDetail }) {
   return (
-    <Box className="channelItem" sx={{ width: { xs: "356px", md: "320px" } }}>
+    <Box
+      className={`channelItem ${
+        !!channelDetail ? "channelItem-channelDetail" : ""
+      }`}
+      sx={{ width: { xs: "356px", md: "320px" } }}
+    >
       <Link to={`/channel/${channel?.id?.channelId}`}>
         <CardContent className="channelItem__cardContent">
           <CardMedia
