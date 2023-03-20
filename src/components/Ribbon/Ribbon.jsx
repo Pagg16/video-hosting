@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import "./ribbon.css";
+import { useSelector, useDispatch } from "react-redux";
 import SidePanel from "../SidePanel/SidePanel";
 import Video from "../Video/Video";
+import { getSuggestedVideos } from "../../action/videoApi";
 
 function Ribbon() {
+  const SuggestedVideos = useSelector((state) => state.videos);
+  const [categorySelect, setCategorySelect] = useState("New");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSuggestedVideos(categorySelect));
+  }, [categorySelect]);
+
   return (
     <Stack
       className="ribbon"
@@ -23,7 +34,10 @@ function Ribbon() {
           },
         }}
       >
-        <SidePanel />
+        <SidePanel
+          setCategorySelect={setCategorySelect}
+          categorySelect={categorySelect}
+        />
         <Typography
           className="ribbon__copiright"
           variant="body2"
@@ -39,7 +53,7 @@ function Ribbon() {
             mb={2}
             sx={{ color: "white" }}
           >
-            <span className="">video</span>
+            {categorySelect} <span className="">video</span>
           </Typography>
           <Video />
         </Box>
