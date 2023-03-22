@@ -17,7 +17,9 @@ function SidePanel({ setCategorySelect, categorySelect }) {
       {categories.map((elem) => (
         <button
           key={elem.name}
-          className="sidePanel__category-btn"
+          className={`sidePanel__category-btn ${
+            categorySelect === elem.name && "sidePanel__category-btn_select"
+          }`}
           onClick={() => setCategorySelect(elem.name)}
         >
           <span className="sidePanel__category-icon">{elem.icon}</span>

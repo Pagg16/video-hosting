@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -12,8 +12,18 @@ import logo from "../../images/logo.png";
 import SearchBar from "../SearchBar/SearchBar";
 
 import "./navbar.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setRegionCodeReduser } from "../../reduser/videosReduser";
 
-function navbar() {
+function Navbar() {
+  const [regionCode, setRegionCode] = useState("US");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setRegionCodeReduser(regionCode));
+  }, [regionCode]);
+
   return (
     <Stack
       direction="row"
@@ -31,22 +41,37 @@ function navbar() {
         <img src={logo} alt="logo" height={45} />
       </Link>
       <SearchBar />
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
+
+      <Select
+        sx={{
+          color: "darck",
+          backgroundColor: "#84dcff",
+          borderRadius: "25px",
+          padding: 0,
+        }}
+        labelId="region-code-label"
+        id="region-code-label"
+        value={regionCode}
+        label="Region"
+        onChange={(e) => {
+          setRegionCode(e.target.value);
+        }}
+      >
+        <MenuItem defaultChecked name="United States" value="US">
+          United States
+        </MenuItem>
+        <MenuItem name="Russia" value="RU">
+          Russia
+        </MenuItem>
+        <MenuItem name="Uzbekistan" value="UZ">
+          Uzbekistan
+        </MenuItem>
+        <MenuItem name="Antarctica" value="AQ">
+          Antarctica
+        </MenuItem>
+      </Select>
     </Stack>
   );
 }
 
-export default navbar;
+export default Navbar;

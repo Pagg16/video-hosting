@@ -12,12 +12,13 @@ function Ribbon() {
     (state) => state.videos.suddestedVidos?.items
   );
   const searchTerm = useSelector((state) => state.videos.searchTerm);
+  const region = useSelector((state) => state.videos.regionCode);
 
   const [categorySelect, setCategorySelect] = useState("New");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getSuggestedVideos(!!searchTerm ? searchTerm : categorySelect)
+    getSuggestedVideos(!!searchTerm ? searchTerm : categorySelect, region)
       .then((res) => {
         if (res.status === 200) return res.data;
         throw res.error?.message || "Get suggested videos error";
@@ -71,7 +72,7 @@ function Ribbon() {
           mb={2}
           sx={{ color: "white", textAlign: "center" }}
         >
-          {categorySelect} <span className="">video</span>
+          {categorySelect} <span className="ribbon__video-them">video</span>
         </Typography>
         <Video videos={suggestedVideos} />
       </Box>

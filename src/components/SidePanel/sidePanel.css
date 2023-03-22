@@ -12,3 +12,7 @@
 .sidePanel__category-icon {
   margin-right: 5px;
 }
+
+.sidePanel__category-btn_select {
+  background-color: #84dcff;
+}

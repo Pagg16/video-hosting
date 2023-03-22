@@ -2,12 +2,14 @@ const SUGGESTED = "SUGGESTED";
 const SEARCHVIDEO = "SEARCHVIDEO";
 const VIDEODETAILS = "VIDEODETAILS";
 const SEARCHTERM = "SEARCHTERM";
+const SETREGIONCODE = "SETREGIONCODE";
 
 const defaultState = {
   suddestedVidos: {},
   searchVideo: {},
   detailsVideo: {},
   searchTerm: "",
+  regionCode: "US",
 };
 
 export default function videosReduser(state = defaultState, action) {
@@ -23,6 +25,9 @@ export default function videosReduser(state = defaultState, action) {
 
     case SEARCHTERM:
       return { ...state, searchTerm: action.payload };
+
+    case SETREGIONCODE:
+      return { ...state, regionCode: action.payload };
 
     default:
       return state;
@@ -47,4 +52,9 @@ export const addDetailsVideo = (video) => ({
 export const setSearchTermReduser = (term) => ({
   type: SEARCHTERM,
   payload: term,
+});
+
+export const setRegionCodeReduser = (region) => ({
+  type: SEARCHTERM,
+  payload: region,
 });

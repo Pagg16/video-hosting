@@ -27,7 +27,6 @@ function SearchBar() {
         border: "1px solid #e3e3e3",
         pl: 2,
         boxShadow: "none",
-        mr: { sm: 5 },
         zIndex: 2,
         backgroundColor: "#efefef",
       }}

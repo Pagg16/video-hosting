@@ -15,7 +15,7 @@ export function getSuggestedVideos(categorySelect, region) {
       ? {
           q: categorySelect,
           part: "snippet,id",
-          regionCode: "US",
+          regionCode: region,
           maxResults: "50",
           order: "date",
         }
