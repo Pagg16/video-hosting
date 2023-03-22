@@ -18,14 +18,18 @@ function VideoItem({
     snippet,
   },
 }) {
+  function scrollToZero() {
+    window.scrollTo(0, 0);
+  }
   return (
     <Card
       className="videoItem"
       sx={{
         width: { xs: "100%", sm: "358px", md: "320px" },
         boxShadow: "none",
-        borderRadius: 0,
+        borderRadius: "10px",
       }}
+      onClick={scrollToZero}
     >
       <Link to={videoId ? `/video/${videoId}` : demoThumbnailUrl}>
         {/* <CardMedia

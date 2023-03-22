@@ -7,10 +7,12 @@ import ChannelDetail from "../ChannelDetail/ChannelDetail";
 import SearchRibbon from "../SearchRibbon/SearchRibbon";
 import VideoDetail from "../VideoDetail/VideoDetail";
 
+import "./app.css";
+
 function App() {
   return (
     <div className="app">
-      <Box sx={{ backgroundColor: "#000" }}>
+      <Box sx={{ backgroundColor: "#000", minHeight: "100vh" }}>
         <Navbar />
         <Routes>
           <Route path="/" exact element={<Ribbon />} />

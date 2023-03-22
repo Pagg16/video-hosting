@@ -1,5 +1,6 @@
 .channelDetail {
   min-height: 95vh;
+  align-items: center;
 }
 
 .channelDetail__gradient {
@@ -9,6 +10,8 @@
 }
 
 .channelDetail__video-container {
-  display: flex;
-  padding: 2px;
+  flex-wrap: wrap;
+  padding: 0 20px 0;
+  width: 100%;
+  box-sizing: border-box;
 }

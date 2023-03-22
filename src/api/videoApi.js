@@ -7,7 +7,7 @@ const headersOption = {
   "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
 };
 
-export function getSuggestedVideos(categorySelect) {
+export function getSuggestedVideos(categorySelect, region) {
   const options = {
     method: "GET",
     url: baseUrl + "/search",
@@ -36,6 +36,33 @@ export function getVideoDetails(videoId) {
     method: "GET",
     url: baseUrl + "/videos",
     params: { part: "contentDetails,snippet,statistics", id: videoId },
+    headers: headersOption,
+  };
+
+  return axios.request(options);
+}
+
+export function getChannelDetails(channelId) {
+  const options = {
+    method: "GET",
+    url: baseUrl + "/channels",
+    params: { part: "snippet,statistics", id: channelId },
+    headers: headersOption,
+  };
+
+  return axios.request(options);
+}
+
+export function getChannelVideos(channelId) {
+  const options = {
+    method: "GET",
+    url: baseUrl + "/search",
+    params: {
+      channelId: channelId,
+      part: "snippet,id",
+      order: "date",
+      maxResults: "50",
+    },
     headers: headersOption,
   };
 

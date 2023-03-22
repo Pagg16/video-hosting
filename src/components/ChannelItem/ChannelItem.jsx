@@ -11,9 +11,16 @@ function ChannelItem({ channel, channelDetail }) {
       className={`channelItem ${
         !!channelDetail ? "channelItem-channelDetail" : ""
       }`}
-      sx={{ width: { xs: "356px", md: "320px" } }}
+      sx={{ width: { xs: "356px", md: "320px" }, borderRadius: "10px" }}
     >
-      <Link to={`/channel/${channel?.id?.channelId}`}>
+      <Link
+        onClick={(e) => {
+          if (!!channelDetail) {
+            e.preventDefault();
+          }
+        }}
+        to={`/channel/${channel?.id?.channelId}`}
+      >
         <CardContent className="channelItem__cardContent">
           {/* <CardMedia
             className="channelItem__cardMedia"
@@ -35,12 +42,19 @@ function ChannelItem({ channel, channelDetail }) {
             <img
               className="channelItem__card-image"
               src={
-                channel?.thumbnails?.high?.url ||
-                channel?.thumbnails?.medium?.url ||
-                channel?.thumbnails?.standard?.url ||
+                channel?.snippet?.thumbnails?.high?.url ||
+                channel?.snippet?.thumbnails?.medium?.url ||
+                channel?.snippet?.thumbnails?.standard?.url ||
                 demoProfilePicture
               }
               alt={channel?.snippet?.title}
+              ref={(e) => {
+                if (!!e) {
+                  e.onerror = () => {
+                    e.src = demoProfilePicture;
+                  };
+                }
+              }}
             />
           </div>
           <Typography variant="h5">
@@ -50,12 +64,30 @@ function ChannelItem({ channel, channelDetail }) {
               className="channelItem__checkCircle"
             />
           </Typography>
-          {channel?.statistics?.subscriberCount && (
-            <Typography
-              sx={{ fontSize: "15px", fontWeight: 500, color: "gray" }}
-            >
-              {channel?.snippet?.description.slice(0, 60)}
-            </Typography>
+          {channel?.statistics && (
+            <>
+              <Typography
+                sx={{ fontSize: "15px", fontWeight: 500, color: "gray" }}
+              >
+                {channel?.snippet?.description.slice(0, 60)}...
+              </Typography>
+              <Typography
+                sx={{ fontSize: "15px", fontWeight: 500, color: "gray" }}
+              >
+                Subscribers{" "}
+                {parseInt(channel?.statistics?.subscriberCount).toLocaleString(
+                  "en-US"
+                )}
+              </Typography>
+              <Typography
+                sx={{ fontSize: "15px", fontWeight: 500, color: "gray" }}
+              >
+                Views{" "}
+                {parseInt(channel?.statistics?.viewCount).toLocaleString(
+                  "en-US"
+                )}
+              </Typography>
+            </>
           )}
         </CardContent>
       </Link>

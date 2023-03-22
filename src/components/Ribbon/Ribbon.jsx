@@ -8,19 +8,23 @@ import { getSuggestedVideos } from "../../api/videoApi";
 import { addSuddestedVido } from "../../reduser/videosReduser";
 
 function Ribbon() {
-  const [categorySelect, setCategorySelect] = useState("New");
+  const suggestedVideos = useSelector(
+    (state) => state.videos.suddestedVidos?.items
+  );
+  const searchTerm = useSelector((state) => state.videos.searchTerm);
 
+  const [categorySelect, setCategorySelect] = useState("New");
   const dispatch = useDispatch();
 
-  console.log(categorySelect);
-
   useEffect(() => {
-    console.log(2);
-    getSuggestedVideos(categorySelect)
-      .then((res) => res.data)
+    getSuggestedVideos(!!searchTerm ? searchTerm : categorySelect)
+      .then((res) => {
+        if (res.status === 200) return res.data;
+        throw res.error?.message || "Get suggested videos error";
+      })
       .then((resData) => dispatch(addSuddestedVido(resData)))
       .catch((e) => alert(e));
-  }, [categorySelect]);
+  }, [categorySelect, searchTerm]);
 
   return (
     <Stack
@@ -52,16 +56,24 @@ function Ribbon() {
           Copiright 2023 video-hosting
         </Typography>
       </Box>
-      <Box pt={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
+      <Box
+        pt={2}
+        sx={{
+          overflowY: "auto",
+          height: "90vh",
+          flex: 2,
+          width: "100%",
+        }}
+      >
         <Typography
           variant="h4"
           fontWeight="bold"
           mb={2}
-          sx={{ color: "white" }}
+          sx={{ color: "white", textAlign: "center" }}
         >
           {categorySelect} <span className="">video</span>
         </Typography>
-        <Video />
+        <Video videos={suggestedVideos} />
       </Box>
     </Stack>
   );

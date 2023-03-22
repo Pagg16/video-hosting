@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Paper, IconButton } from "@mui/material";
 import { Search } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { setSearchTermReduser } from "../../reduser/videosReduser";
 
 function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleSubmit(e) {
     e.preventDefault();
 
     if (searchTerm) {
-      navigate(`/search/${searchTerm}`);
-
+      dispatch(setSearchTermReduser(searchTerm));
       setSearchTerm("");
     }
   }
@@ -28,6 +28,8 @@ function SearchBar() {
         pl: 2,
         boxShadow: "none",
         mr: { sm: 5 },
+        zIndex: 2,
+        backgroundColor: "#efefef",
       }}
     >
       <input
@@ -38,7 +40,7 @@ function SearchBar() {
           setSearchTerm(e.target.value);
         }}
       />
-      <IconButton type="submit" sx={{ p: "10px", color: "red" }}>
+      <IconButton type="submit" sx={{ p: "10px", color: "#84dcff" }}>
         <Search />
       </IconButton>
     </Paper>

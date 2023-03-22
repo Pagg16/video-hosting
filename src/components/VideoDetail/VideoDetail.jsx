@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { Box, Typography, Stack } from "@mui/material";
@@ -14,6 +14,9 @@ import { addDetailsVideo } from "../../reduser/videosReduser";
 function VideoDetail() {
   const videoDetail = useSelector(
     (state) => state.videos.detailsVideo.items?.[0]
+  );
+  const suggestedVideos = useSelector(
+    (state) => state.videos.suddestedVidos?.items
   );
 
   const { id } = useParams();
@@ -84,8 +87,9 @@ function VideoDetail() {
           py={{ md: 1, xs: 5 }}
           justifyContent="center"
           alignItems="center"
+          overflow="hidden"
         >
-          <Video direction="column" id={id} />
+          <Video videos={suggestedVideos} direction="column" id={id} />
         </Box>
       </Stack>
     </Box>

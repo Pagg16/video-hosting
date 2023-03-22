@@ -1,11 +1,13 @@
 const SUGGESTED = "SUGGESTED";
 const SEARCHVIDEO = "SEARCHVIDEO";
 const VIDEODETAILS = "VIDEODETAILS";
+const SEARCHTERM = "SEARCHTERM";
 
 const defaultState = {
   suddestedVidos: {},
   searchVideo: {},
   detailsVideo: {},
+  searchTerm: "",
 };
 
 export default function videosReduser(state = defaultState, action) {
@@ -18,6 +20,9 @@ export default function videosReduser(state = defaultState, action) {
 
     case VIDEODETAILS:
       return { ...state, detailsVideo: action.payload };
+
+    case SEARCHTERM:
+      return { ...state, searchTerm: action.payload };
 
     default:
       return state;
@@ -37,4 +42,9 @@ export const addSearchVideo = (videos) => ({
 export const addDetailsVideo = (video) => ({
   type: VIDEODETAILS,
   payload: video,
+});
+
+export const setSearchTermReduser = (term) => ({
+  type: SEARCHTERM,
+  payload: term,
 });

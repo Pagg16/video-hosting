@@ -24,6 +24,6 @@ export const addDetailChannel = (detail) => ({
 });
 
 export const addVideosChannel = (videos) => ({
-  type: CHANNELDETAIL,
+  type: CHANNELVIDEOS,
   payload: videos,
 });

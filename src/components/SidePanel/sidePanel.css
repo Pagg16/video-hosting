@@ -1,2 +1,14 @@
+.sidePanel__category-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 50px;
+  border: none;
+  padding: 5px;
+  box-sizing: border-box;
+  margin: 5px;
+}
+
 .sidePanel__category-icon {
+  margin-right: 5px;
 }
