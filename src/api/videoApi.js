@@ -11,12 +11,31 @@ export function getSuggestedVideos(categorySelect) {
   const options = {
     method: "GET",
     url: baseUrl + "/search",
-    params: {
-      relatedToVideoId: "7ghhRHRP6t4",
-      part: "id,snippet",
-      type: categorySelect,
-      maxResults: "50",
-    },
+    params: !!categorySelect
+      ? {
+          q: categorySelect,
+          part: "snippet,id",
+          regionCode: "US",
+          maxResults: "50",
+          order: "date",
+        }
+      : {
+          relatedToVideoId: "7ghhRHRP6t4",
+          part: "id,snippet",
+          type: "video",
+          maxResults: "50",
+        },
+    headers: headersOption,
+  };
+
+  return axios.request(options);
+}
+
+export function getVideoDetails(videoId) {
+  const options = {
+    method: "GET",
+    url: baseUrl + "/videos",
+    params: { part: "contentDetails,snippet,statistics", id: videoId },
     headers: headersOption,
   };
 

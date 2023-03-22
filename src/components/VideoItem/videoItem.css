@@ -1,6 +1,15 @@
 .videoItem__card {
-  width: 358px;
   height: 180px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.videoItem__card-image {
+  width: 100%;
 }
 
 .videoItem__card-content {

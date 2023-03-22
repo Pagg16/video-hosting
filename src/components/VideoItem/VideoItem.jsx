@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Typography, Card, CardContent, CardMedia } from "@mui/material";
-import { CheckCircle } from "@mui/icons-material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import "./videoItem.css";
 
@@ -22,24 +22,38 @@ function VideoItem({
     <Card
       className="videoItem"
       sx={{
-        width: { md: "320px", xs: "100%" },
+        width: { xs: "100%", sm: "358px", md: "320px" },
         boxShadow: "none",
         borderRadius: 0,
       }}
     >
-      <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
-        <CardMedia
+      <Link to={videoId ? `/video/${videoId}` : demoThumbnailUrl}>
+        {/* <CardMedia
           className="videoItem__card"
-          image={snippet?.thumbanils?.high?.url}
+          image={
+            snippet?.thumbnails?.high?.url ||
+            snippet?.thumbnails?.medium?.url ||
+            snippet?.thumbnails?.standard?.url
+          }
           alt={snippet?.title}
-        />
+          component="img"
+          sx={{ width: { xs: "100%", sm: "358px" }, height: 180 }}
+        /> */}
+        <div className="videoItem__card">
+          <img
+            className="videoItem__card-image"
+            src={
+              snippet?.thumbnails?.high?.url ||
+              snippet?.thumbnails?.medium?.url ||
+              snippet?.thumbnails?.standard?.url
+            }
+            alt={snippet?.title}
+          />
+        </div>
       </Link>
       <CardContent className="videoItem__card-content">
         <Link to={videoId ? `/channel/${videoId}` : demoVideoUrl}>
-          <Typography
-            className="videoItem__card-typography"
-            variant="subtitle1"
-          >
+          <Typography variant="subtitle1" fontWeight="bold" color="#FFF">
             {snippet?.title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
           </Typography>
         </Link>
@@ -47,10 +61,14 @@ function VideoItem({
           <Typography
             className="videoItem__card-typography"
             variant="subtitle2"
+            color="gray"
           >
             {snippet?.channelTitle.slice(0, 60) ||
               demoChannelTitle.slice(0, 60)}
-            <CheckCircle className="videoItem__card-checkCircle" />
+            <CheckCircleIcon
+              sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
+              className="videoItem__card-checkCircle"
+            />
           </Typography>
         </Link>
       </CardContent>

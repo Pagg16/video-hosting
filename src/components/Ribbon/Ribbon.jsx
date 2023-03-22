@@ -12,7 +12,10 @@ function Ribbon() {
 
   const dispatch = useDispatch();
 
+  console.log(categorySelect);
+
   useEffect(() => {
+    console.log(2);
     getSuggestedVideos(categorySelect)
       .then((res) => res.data)
       .then((resData) => dispatch(addSuddestedVido(resData)))
@@ -48,18 +51,17 @@ function Ribbon() {
         >
           Copiright 2023 video-hosting
         </Typography>
-
-        <Box pt={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            mb={2}
-            sx={{ color: "white" }}
-          >
-            {categorySelect} <span className="">video</span>
-          </Typography>
-          <Video />
-        </Box>
+      </Box>
+      <Box pt={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          mb={2}
+          sx={{ color: "white" }}
+        >
+          {categorySelect} <span className="">video</span>
+        </Typography>
+        <Video />
       </Box>
     </Stack>
   );

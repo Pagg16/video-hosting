@@ -4,8 +4,8 @@ import { Box } from "@mui/material";
 import Navbar from "../Navbar/Navbar";
 import Ribbon from "../Ribbon/Ribbon";
 import ChannelDetail from "../ChannelDetail/ChannelDetail";
-import Video from "../Video/Video";
 import SearchRibbon from "../SearchRibbon/SearchRibbon";
+import VideoDetail from "../VideoDetail/VideoDetail";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" exact element={<Ribbon />} />
-          <Route path="/video/:id" element={<Video />} />
+          <Route path="/video/:id" element={<VideoDetail />} />
           <Route path="/channel/:id" element={<ChannelDetail />} />
           <Route path="/search/:searchTerm" element={<SearchRibbon />} />
         </Routes>

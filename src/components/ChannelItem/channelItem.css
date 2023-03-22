@@ -12,6 +12,23 @@
   margin-top: -93px;
 }
 
+.channelItem__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0;
+  overflow: hidden;
+  border-radius: 50%;
+  height: 180px;
+  width: 180px;
+  margin-bottom: 2px;
+  border: 1px solid #e3e3e3;
+}
+
+.channelItem__card-image {
+  width: 100%;
+}
+
 .channelItem__cardContent {
   display: flex;
   flex-direction: column;

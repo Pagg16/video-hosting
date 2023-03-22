@@ -1,0 +1,9 @@
+.videoDetail {
+  min-height: 95vh;
+}
+
+.videoDetail__box {
+  width: 100%;
+  position: sticky;
+  top: 86px;
+}
