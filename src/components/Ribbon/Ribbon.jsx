@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import "./ribbon.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,17 +15,40 @@ function Ribbon() {
   const region = useSelector((state) => state.videos.regionCode);
 
   const [categorySelect, setCategorySelect] = useState("New");
+  const [previousValues, setPreviousValues] = useState({
+    searchTerm: "",
+    categorySelect: categorySelect,
+  });
+
+  const dependencyRequests = useMemo(() => {
+    if (categorySelect !== previousValues.categorySelect) {
+      setPreviousValues((state) => ({
+        ...state,
+        categorySelect: categorySelect,
+      }));
+      return categorySelect;
+    }
+
+    if (searchTerm !== previousValues.searchTerm) {
+      setPreviousValues((state) => ({
+        ...state,
+        searchTerm: searchTerm,
+      }));
+      return searchTerm;
+    }
+  }, [categorySelect, searchTerm]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getSuggestedVideos(!!searchTerm ? searchTerm : categorySelect, region)
+    getSuggestedVideos(dependencyRequests, region)
       .then((res) => {
         if (res.status === 200) return res.data;
         throw res.error?.message || "Get suggested videos error";
       })
       .then((resData) => dispatch(addSuddestedVido(resData)))
       .catch((e) => alert(e));
-  }, [categorySelect, searchTerm]);
+  }, [dependencyRequests]);
 
   return (
     <Stack

@@ -6,19 +6,21 @@ import {
   Select,
   Stack,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import logo from "../../images/logo.png";
 import SearchBar from "../SearchBar/SearchBar";
 
 import "./navbar.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setRegionCodeReduser } from "../../reduser/videosReduser";
 
 function Navbar() {
   const [regionCode, setRegionCode] = useState("US");
 
   const dispatch = useDispatch();
+
+  const { path } = useLocation();
 
   useEffect(() => {
     dispatch(setRegionCodeReduser(regionCode));
