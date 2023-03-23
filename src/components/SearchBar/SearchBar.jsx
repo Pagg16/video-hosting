@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Paper, IconButton } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearchTermReduser } from "../../reduser/videosReduser";
 
-function SearchBar() {
-  const [searchTerm, setSearchTerm] = useState("");
+function SearchBar({ inputPrevention }) {
+  const searchTerm = useSelector((state) => state.videos.searchTerm);
+
+  const [searchTermInput, setSearchTermInput] = useState("");
 
   const dispatch = useDispatch();
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    if (searchTerm) {
-      dispatch(setSearchTermReduser(searchTerm));
-      setSearchTerm("");
+    if (searchTermInput) {
+      dispatch(setSearchTermReduser(searchTermInput));
     }
   }
+
+  useEffect(() => {
+    if (searchTermInput !== searchTerm) setSearchTermInput(searchTerm);
+  }, [searchTerm]);
 
   return (
     <Paper
@@ -30,13 +34,14 @@ function SearchBar() {
         zIndex: 2,
         backgroundColor: "#efefef",
       }}
+      onClick={inputPrevention}
     >
       <input
         className="search-bar__input"
         placeholder="Search"
-        value={searchTerm}
+        value={searchTermInput}
         onChange={(e) => {
-          setSearchTerm(e.target.value);
+          setSearchTermInput(e.target.value);
         }}
       />
       <IconButton type="submit" sx={{ p: "10px", color: "#84dcff" }}>

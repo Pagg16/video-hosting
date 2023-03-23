@@ -8,6 +8,11 @@ import SearchRibbon from "../SearchRibbon/SearchRibbon";
 import VideoDetail from "../VideoDetail/VideoDetail";
 
 import "./app.css";
+import {
+  channelIdPath,
+  homePath,
+  videoIdPath,
+} from "../../utils/pathConstants";
 
 function App() {
   return (
@@ -15,9 +20,9 @@ function App() {
       <Box sx={{ backgroundColor: "#000", minHeight: "100vh" }}>
         <Navbar />
         <Routes>
-          <Route path="/" exact element={<Ribbon />} />
-          <Route path="/video/:id" element={<VideoDetail />} />
-          <Route path="/channel/:id" element={<ChannelDetail />} />
+          <Route path={homePath} exact element={<Ribbon />} />
+          <Route path={videoIdPath} element={<VideoDetail />} />
+          <Route path={channelIdPath} element={<ChannelDetail />} />
           <Route path="/search/:searchTerm" element={<SearchRibbon />} />
         </Routes>
       </Box>

@@ -5,9 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import SidePanel from "../SidePanel/SidePanel";
 import Video from "../Video/Video";
 import { getSuggestedVideos } from "../../api/videoApi";
-import { addSuddestedVido } from "../../reduser/videosReduser";
+import {
+  addSuddestedVido,
+  setSearchTermReduser,
+} from "../../reduser/videosReduser";
 
 function Ribbon() {
+  const dispatch = useDispatch();
+
   const suggestedVideos = useSelector(
     (state) => state.videos.suddestedVidos?.items
   );
@@ -24,8 +29,10 @@ function Ribbon() {
     if (categorySelect !== previousValues.categorySelect) {
       setPreviousValues((state) => ({
         ...state,
+        searchTerm: "",
         categorySelect: categorySelect,
       }));
+      dispatch(setSearchTermReduser(""));
       return categorySelect;
     }
 
@@ -37,8 +44,6 @@ function Ribbon() {
       return searchTerm;
     }
   }, [categorySelect, searchTerm]);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     getSuggestedVideos(dependencyRequests, region)
@@ -70,7 +75,7 @@ function Ribbon() {
       >
         <SidePanel
           setCategorySelect={setCategorySelect}
-          categorySelect={categorySelect}
+          categorySelect={!!searchTerm ? "none" : categorySelect}
         />
         <Typography
           className="ribbon__copiright"
@@ -95,7 +100,8 @@ function Ribbon() {
           mb={2}
           sx={{ color: "white", textAlign: "center" }}
         >
-          {categorySelect} <span className="ribbon__video-them">video</span>
+          {!!searchTerm ? `Found ${searchTerm}` : { categorySelect }}{" "}
+          <span className="ribbon__video-them">video</span>
         </Typography>
         <Video videos={suggestedVideos} />
       </Box>

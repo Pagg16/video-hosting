@@ -6,7 +6,7 @@ import {
   Select,
   Stack,
 } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import logo from "../../images/logo.png";
 import SearchBar from "../SearchBar/SearchBar";
@@ -14,6 +14,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import "./navbar.css";
 import { useDispatch } from "react-redux";
 import { setRegionCodeReduser } from "../../reduser/videosReduser";
+import { homePath } from "../../utils/pathConstants";
 
 function Navbar() {
   const [regionCode, setRegionCode] = useState("US");
@@ -22,9 +23,17 @@ function Navbar() {
 
   const { path } = useLocation();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(setRegionCodeReduser(regionCode));
   }, [regionCode]);
+
+  function inputPrevention() {
+    if (path !== homePath) {
+      navigate(homePath);
+    }
+  }
 
   return (
     <Stack
@@ -42,7 +51,7 @@ function Navbar() {
       <Link to="/" className="navbar__link">
         <img src={logo} alt="logo" height={45} />
       </Link>
-      <SearchBar />
+      <SearchBar inputPrevention={inputPrevention} />
 
       <Select
         sx={{
@@ -58,6 +67,7 @@ function Navbar() {
         onChange={(e) => {
           setRegionCode(e.target.value);
         }}
+        onClick={inputPrevention}
       >
         <MenuItem defaultChecked name="United States" value="US">
           United States
