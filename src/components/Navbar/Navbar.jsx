@@ -48,7 +48,7 @@ function Navbar() {
         zIndex: 2,
       }}
     >
-      <Link to="/" className="navbar__link">
+      <Link to={homePath} className="navbar__link">
         <img src={logo} alt="logo" height={45} />
       </Link>
       <SearchBar inputPrevention={inputPrevention} />
