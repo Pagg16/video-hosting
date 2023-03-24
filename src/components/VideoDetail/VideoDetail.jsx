@@ -38,7 +38,13 @@ function VideoDetail() {
     <Box className="videoDetail">
       <Stack direction={{ xs: "column", md: "row" }}>
         <Box flex={1}>
-          <Box sx={{ width: "100%", position: "sticky", top: "86px" }}>
+          <Box
+            sx={{
+              width: "100%",
+              position: "sticky",
+              top: "86px",
+            }}
+          >
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${id}`}
               className="react-player"
@@ -56,7 +62,7 @@ function VideoDetail() {
             >
               <Link to={`/channel/${videoDetail?.snippet?.channelId}`}>
                 <Typography
-                  variant={{ sm: "subtitle1", md: "h6" }}
+                  variantMapping={{ sm: "subtitle1", md: "h6" }}
                   color="#fff"
                 >
                   {videoDetail?.snippet?.thumbnails?.channelTitle}

@@ -22,17 +22,16 @@ function Ribbon() {
   const [categorySelect, setCategorySelect] = useState("New");
   const [previousValues, setPreviousValues] = useState({
     searchTerm: "",
-    categorySelect: categorySelect,
+    category: categorySelect,
   });
 
   const dependencyRequests = useMemo(() => {
-    if (categorySelect !== previousValues.categorySelect) {
+    if (categorySelect !== previousValues.category) {
       setPreviousValues((state) => ({
         ...state,
         searchTerm: "",
-        categorySelect: categorySelect,
+        category: categorySelect,
       }));
-      dispatch(setSearchTermReduser(""));
       return categorySelect;
     }
 
@@ -40,10 +39,20 @@ function Ribbon() {
       setPreviousValues((state) => ({
         ...state,
         searchTerm: searchTerm,
+        category: "",
       }));
       return searchTerm;
     }
+
+    return !!searchTerm ? searchTerm : categorySelect;
   }, [categorySelect, searchTerm]);
+
+  useEffect(() => {
+    if (!!!previousValues.searchTerm)
+      dispatch(setSearchTermReduser(previousValues.searchTerm));
+
+    if (!!!previousValues.category) setCategorySelect(previousValues.category);
+  }, [dependencyRequests]);
 
   useEffect(() => {
     getSuggestedVideos(dependencyRequests, region)
@@ -53,7 +62,7 @@ function Ribbon() {
       })
       .then((resData) => dispatch(addSuddestedVido(resData)))
       .catch((e) => alert(e));
-  }, [dependencyRequests]);
+  }, [dependencyRequests, region]);
 
   return (
     <Stack
@@ -75,7 +84,7 @@ function Ribbon() {
       >
         <SidePanel
           setCategorySelect={setCategorySelect}
-          categorySelect={!!searchTerm ? "none" : categorySelect}
+          categorySelect={categorySelect}
         />
         <Typography
           className="ribbon__copiright"
@@ -100,8 +109,16 @@ function Ribbon() {
           mb={2}
           sx={{ color: "white", textAlign: "center" }}
         >
-          {!!searchTerm ? `Found ${searchTerm}` : { categorySelect }}{" "}
-          <span className="ribbon__video-them">video</span>
+          {!!searchTerm ? (
+            <>
+              Found <span className="ribbon__video-them">{searchTerm}</span>{" "}
+              video
+            </>
+          ) : (
+            <>
+              {categorySelect} <span className="ribbon__video-them">video</span>
+            </>
+          )}
         </Typography>
         <Video videos={suggestedVideos} />
       </Box>

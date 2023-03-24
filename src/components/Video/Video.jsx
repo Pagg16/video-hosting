@@ -22,14 +22,14 @@ function Video({ videos, direction, id }) {
           })
         : videos
       )?.map((elem, index) => (
-        <>
+        <div key={index}>
           {!!!elem.id.playlistId && (
-            <Box  key={index}>
+            <Box>
               {elem.id.videoId && <VideoItem video={elem} />}
               {elem.id.channelId && <ChannelItem channel={elem} />}
             </Box>
           )}
-        </>
+        </div>
       ))}
     </Stack>
   );

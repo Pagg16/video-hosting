@@ -7,6 +7,7 @@
   padding: 5px;
   box-sizing: border-box;
   margin: 5px;
+  cursor: pointer;
 }
 
 .sidePanel__category-icon {
@@ -14,5 +15,9 @@
 }
 
 .sidePanel__category-btn_select {
+  background-color: #84dcff;
+}
+
+.sidePanel__category-btn:hover {
   background-color: #84dcff;
 }

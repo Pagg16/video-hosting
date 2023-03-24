@@ -58,7 +58,7 @@ function Navbar() {
           color: "darck",
           backgroundColor: "#84dcff",
           borderRadius: "25px",
-          padding: 0,
+          ".MuiSelect-select": { padding: "10px" },
         }}
         labelId="region-code-label"
         id="region-code-label"

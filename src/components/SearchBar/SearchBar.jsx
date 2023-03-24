@@ -3,6 +3,7 @@ import { Paper, IconButton } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchTermReduser } from "../../reduser/videosReduser";
+import "./searchBar.css";
 
 function SearchBar({ inputPrevention }) {
   const searchTerm = useSelector((state) => state.videos.searchTerm);

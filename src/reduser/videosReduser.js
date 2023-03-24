@@ -55,6 +55,6 @@ export const setSearchTermReduser = (term) => ({
 });
 
 export const setRegionCodeReduser = (region) => ({
-  type: SEARCHTERM,
+  type: SETREGIONCODE,
   payload: region,
 });

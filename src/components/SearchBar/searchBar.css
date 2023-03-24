@@ -7,3 +7,9 @@
   position: sticky;
   top: 86px;
 }
+
+@media (max-width: 520px) {
+  .search-bar__input {
+    max-width: 80px;
+  }
+}
