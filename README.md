@@ -1,70 +1,240 @@
-# Getting Started with Create React App
+# Entertaining – YouTube-подобное видео приложение
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📋 Описание проекта
 
-## Available Scripts
+**Entertaining** — это веб-приложение для поиска и просмотра видео с YouTube через YouTube API v3. Приложение предоставляет функционал, аналогичный YouTube: поиск видео, просмотр по категориям, детальная информация о видео и каналах, а также выбор региона для контента.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Технологии
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React 18** с Create React App
+- **Redux + Redux Thunk** – управление состоянием
+- **Material-UI (MUI)** – UI компоненты и стилизация
+- **React Router v6** – маршрутизация
+- **Axios** – HTTP-запросы к API
+- **React Player** – встроенный плеер для YouTube
+- **YouTube Data API v3** через RapidAPI
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🏗 Архитектура проекта
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+Entertaining/
+├── public/                    # Статические файлы
+├── src/
+│   ├── components/           # React-компоненты
+│   │   ├── App/             # Главный компонент
+│   │   ├── Navbar/          # Навигационная панель
+│   │   ├── Ribbon/          # Главная страница с видео
+│   │   ├── SidePanel/       # Боковая панель категорий
+│   │   ├── Video/           # Компонент отображения видео
+│   │   ├── VideoItem/       # Карточка видео
+│   │   ├── VideoDetail/     # Детальная страница видео
+│   │   ├── ChannelDetail/   # Страница канала
+│   │   ├── ChannelItem/     # Карточка канала
+│   │   ├── SearchBar/       # Поисковая строка
+│   │   └── CSS модули       # Стили компонентов
+│   ├── api/                 # API-запросы
+│   │   └── videoApi.js
+│   ├── reduser/             # Redux редьюсеры
+│   │   ├── videosReduser.js
+│   │   ├── channelReduser.js
+│   │   └── index.js
+│   ├── utils/               # Утилиты и константы
+│   │   ├── constans.js
+│   │   └── pathConstants.js
+│   ├── images/              # Изображения
+│   └── index.js             # Точка входа приложения
+├── package.json             # Зависимости
+└── README.md                # Документация
+```
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ⚙️ Установка и запуск
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. Клонирование и установка зависимостей
+```bash
+git clone <repository-url>
+cd Entertaining
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2. Настройка API ключей
+В файле `src/api/videoApi.js` замените RapidAPI ключи на свои:
+```javascript
+const headersOption = {
+  "X-RapidAPI-Key": "ВАШ_КЛЮЧ",
+  "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
+};
+```
 
-### `npm run eject`
+### 3. Запуск в режиме разработки
+```bash
+npm start
+```
+Приложение будет доступно по адресу: `http://localhost:3000`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 4. Сборка для production
+```bash
+npm run build
+```
+Собранные файлы появятся в папке `build/`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🌐 API и данные
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### **Используемые API:**
+- **YouTube Data API v3** через RapidAPI
+- **Конечные точки:**
+  - `/search` – поиск видео и каналов
+  - `/videos` – детальная информация о видео
+  - `/channels` – информация о каналах
 
-## Learn More
+### **Основные функции API:**
+- `getSuggestedVideos()` – получение рекомендуемых видео
+- `getVideoDetails()` – детали конкретного видео
+- `getChannelDetails()` – информация о канале
+- `getChannelVideos()` – видео конкретного канала
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📱 Функционал приложения
 
-### Code Splitting
+### **Основные возможности:**
+- ✅ Поиск видео по ключевым словам
+- ✅ Фильтрация видео по категориям (16 категорий)
+- ✅ Выбор региона контента (US, RU, UZ, AQ)
+- ✅ Просмотр видео встроенным плеером
+- ✅ Детальная информация о видео (просмотры, лайки)
+- ✅ Страницы каналов с описанием и видео
+- ✅ Адаптивный дизайн для всех устройств
+- ✅ Плавная навигация между страницами
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### **Страницы приложения:**
+- **Главная** (`/`) – лента видео с категориями
+- **Видео** (`/video/:id`) – просмотр видео и похожие ролики
+- **Канал** (`/channel/:id`) – информация о канале и его видео
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🎨 Компоненты
 
-### Making a Progressive Web App
+### **App (`App.js`)**
+- Корневой компонент с роутингом
+- Оборачивает все в Redux Provider
+- Устанавливает глобальные стили Material-UI
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### **Navbar (`Navbar.js`)**
+- Навигационная панель с логотипом
+- Поисковая строка
+- Выбор региона контента
 
-### Advanced Configuration
+### **Ribbon (`Ribbon.js`)**
+- Главная страница с видео-лентой
+- Боковая панель категорий
+- Отображение видео в зависимости от выбранной категории или поиска
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### **VideoDetail (`VideoDetail.js`)**
+- Страница просмотра видео
+- Встроенный YouTube плеер
+- Статистика видео (просмотры, лайки)
+- Похожие видео
 
-### Deployment
+### **ChannelDetail (`ChannelDetail.js`)**
+- Страница канала
+- Аватар и описание канала
+- Статистика (подписчики, просмотры)
+- Видео канала
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### **VideoItem / ChannelItem**
+- Карточки для отображения в списках
+- Оптимизированные изображения с fallback
+- Ссылки на соответствующие страницы
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🗂 Управление состоянием (Redux)
+
+### **videosReduser:**
+```javascript
+{
+  suddestedVidos: [],     // Рекомендуемые видео
+  searchVideo: [],        // Результаты поиска
+  detailsVideo: {},       // Детали текущего видео
+  searchTerm: "",         // Поисковый запрос
+  regionCode: "US"        // Код региона
+}
+```
+
+### **channelReduser:**
+```javascript
+{
+  channelDetail: {},      // Детали канала
+  channelVideos: []       // Видео канала
+}
+```
+
+---
+
+## 🎯 Особенности реализации
+
+### **Оптимизация запросов:**
+- Мемоизация зависимостей для предотвращения лишних запросов
+- Обработка ошибок API с пользовательскими сообщениями
+- Кэширование данных через Redux
+
+### **Производительность:**
+- Оптимизированные рендеры списков
+- Виртуализация скролла через Material-UI
+- Кэширование часто используемых данных
+- Минификация и сжатие ресурсов в production
+
+---
+
+## 🎨 Стилизация
+
+- **Material-UI** – основная библиотека компонентов
+- **CSS Modules** – локальные стили компонентов
+- **Адаптивный дизайн** с медиа-запросами:
+  - Мобильные: < 600px
+  - Планшеты: 600px - 900px
+  - Десктоп: > 900px
+- **Кастомные CSS** для уникальных компонентов
+
+---
+
+## 🌍 Регионы и локализация
+
+Поддерживаемые регионы:
+- **US** – США
+- **RU** – Россия
+- **UZ** – Узбекистан
+- **AQ** – Антарктида
+
+Регион влияет на:
+- Язык контента
+- Трендовые видео
+- Рекомендации YouTube
+
+---
+
+## 📦 Развертывание
+
+### **На Vercel:**
+```bash
+npm install -g vercel
+vercel
+```
+
+### **На Netlify:**
+1. Собрать проект: `npm run build`
+2. Загрузить папку `build/` на Netlify
+
+### **На собственном сервере:**
+```bash
+npm run build
+# Скопировать содержимое build/ на сервер

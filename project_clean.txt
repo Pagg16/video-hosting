@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <title>Entertaining</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+
+</body>
+
+</html>{
+  "short_name": "React App",
+  "name": "Create React App Sample",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow:
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+import axios from "axios";
+import { addSuddestedVido } from "../reduser/videosReduser";
+
+const baseUrl = "https://youtube-v31.p.rapidapi.com";
+const headersOption = {
+  "X-RapidAPI-Key": "570f0ed2cdmsh30dc44b8e51f7b7p18bb4ajsn19eabb1c5b1f",
+  "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
+};
+
+export function getSuggestedVideos(categorySelect, region) {
+  const options = {
+    method: "GET",
+    url: baseUrl + "/search",
+    params: !!categorySelect
+      ? {
+          q: categorySelect,
+          part: "snippet,id",
+          regionCode: region,
+          maxResults: "50",
+          order: "date",
+        }
+      : {
+          relatedToVideoId: "7ghhRHRP6t4",
+          part: "id,snippet",
+          type: "video",
+          maxResults: "50",
+        },
+    headers: headersOption,
+  };
+
+  return axios.request(options);
+}
+
+export function getVideoDetails(videoId) {
+  const options = {
+    method: "GET",
+    url: baseUrl + "/videos",
+    params: { part: "contentDetails,snippet,statistics", id: videoId },
+    headers: headersOption,
+  };
+
+  return axios.request(options);
+}
+
+export function getChannelDetails(channelId) {
+  const options = {
+    method: "GET",
+    url: baseUrl + "/channels",
+    params: { part: "snippet,statistics", id: channelId },
+    headers: headersOption,
+  };
+
+  return axios.request(options);
+}
+
+export function getChannelVideos(channelId) {
+  const options = {
+    method: "GET",
+    url: baseUrl + "/search",
+    params: {
+      channelId: channelId,
+      part: "snippet,id",
+      order: "date",
+      maxResults: "50",
+    },
+    headers: headersOption,
+  };
+
+  return axios.request(options);
+}
+.app {
+  min-height: 100vh;
+  min-width: 375px;
+}
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Box } from "@mui/material";
+
+import Navbar from "../Navbar/Navbar";
+import Ribbon from "../Ribbon/Ribbon";
+import ChannelDetail from "../ChannelDetail/ChannelDetail";
+import VideoDetail from "../VideoDetail/VideoDetail";
+
+import "./app.css";
+import {
+  channelIdPath,
+  homePath,
+  videoIdPath,
+} from "../../utils/pathConstants";
+
+function App() { 
+  return (
+    <div className="app">
+      <Box sx={{ backgroundColor: "#000", minHeight: "100vh" }}>
+        <Navbar />
+        <Routes>
+          <Route path={homePath} exact element={<Ribbon />} />
+          <Route path={videoIdPath} element={<VideoDetail />} />
+          <Route path={channelIdPath} element={<ChannelDetail />} />
+        </Routes>
+      </Box>
+    </div>
+  );
+}
+
+export default App;
+.channelDetail {
+  min-height: 95vh;
+  align-items: center;
+}
+
+.channelDetail__gradient {
+  background-color: red;
+  z-index: 10;
+  height: 300px;
+}
+
+.channelDetail__video-container {
+  flex-wrap: wrap;
+  padding: 0 20px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Box } from "@mui/material";
+
+import ChannelItem from "../ChannelItem/ChannelItem";
+import { useDispatch, useSelector } from "react-redux";
+
+import "./channelDetail.css";
+import { getChannelDetails, getChannelVideos } from "../../api/videoApi";
+import {
+  addDetailChannel,
+  addVideosChannel,
+} from "../../reduser/channelReduser";
+import Video from "../Video/Video";
+import { addSuddestedVido } from "../../reduser/videosReduser";
+
+function ChannelDetail() {
+  const channelDetail = useSelector(
+    (state) => state.channel.channelDetail.items?.[0]
+  );
+
+  const suggestedVideos = useSelector(
+    (state) => state.videos.suddestedVidos?.items
+  );
+
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    Promise.all([getChannelDetails(id), getChannelVideos(id)])
+      .then((resArr) => {
+        if (resArr[0].status === 200 && resArr[1].status === 200) {
+          return {
+            channelDetails: resArr[0].data,
+            channelVideos: resArr[1].data,
+          };
+        }
+        throw (
+          resArr[0].error?.message ||
+          resArr[1].error?.message ||
+          "Get channel and videos error"
+        );
+      })
+      .then((resObj) => {
+        dispatch(addDetailChannel(resObj.channelDetails));
+        dispatch(addSuddestedVido(resObj.channelVideos));
+      })
+      .catch((e) => alert(e))
+      .finally(() => {});
+  }, [id]);
+
+  return (
+    <Box className="channelDetail">
+      <Box>
+        <div className="channelDetail__gradient" />
+        <ChannelItem channel={channelDetail} channelDetail={true} />
+      </Box>
+      <Box className="channelDetail__video-container">
+        <Video videos={suggestedVideos} />
+      </Box>
+    </Box>
+  );
+}
+
+export default ChannelDetail;
+.channelItem {
+  box-shadow: none;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 326px;
+  margin: auto;
+}
+
+.channelItem-channelDetail {
+  margin-top: -93px;
+}
+
+.channelItem__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0;
+  overflow: hidden;
+  border-radius: 50%;
+  height: 180px;
+  width: 180px;
+  margin-bottom: 2px;
+  border: 1px solid #e3e3e3;
+}
+
+.channelItem__card-image {
+  width: 100%;
+}
+
+.channelItem__cardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.channelItem__cardMedia {
+  border-radius: 50%;
+  height: 180px;
+  width: 180px;
+  margin-bottom: 2px;
+  border: 1px solid #e3e3e3;
+}
+
+.channelItem__checkCircle {
+  font-size: 14;
+  color: gray;
+  margin-left: 5px;
+}
+import React from "react";
+import { Box, CardContent, CardMedia, Typography } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { Link } from "react-router-dom";
+import "./channelItem.css";
+import { demoProfilePicture } from "../../utils/constans";
+
+function ChannelItem({ channel, channelDetail }) {
+  return (
+    <Box
+      className={`channelItem ${
+        !!channelDetail ? "channelItem-channelDetail" : ""
+      }`}
+      sx={{ width: { xs: "356px", md: "320px" }, borderRadius: "10px" }}
+    >
+      <Link
+        onClick={(e) => {
+          if (!!channelDetail) {
+            e.preventDefault();
+          }
+        }}
+        to={`/channel/${channel?.id?.channelId}`}
+      >
+        <CardContent className="channelItem__cardContent">
+          {/* <CardMedia
+            className="channelItem__cardMedia"
+            image={
+              channel?.snippet?.thumbnails?.high?.url || demoProfilePicture
+            }
+            alt={channel?.snippet?.title}
+            component="img"
+            sx={{
+              borderRadius: "50%",
+              height: "180px",
+              width: "180px",
+              mb: 2,
+              border: "1px solid #e3e3e3",
+            }}
+          /> */}
+
+          <div className="channelItem__card">
+            <img
+              className="channelItem__card-image"
+              src={
+                channel?.snippet?.thumbnails?.high?.url ||
+                channel?.snippet?.thumbnails?.medium?.url ||
+                channel?.snippet?.thumbnails?.standard?.url ||
+                demoProfilePicture
+              }
+              alt={channel?.snippet?.title}
+              ref={(e) => {
+                if (!!e) {
+                  e.onerror = () => {
+                    e.src = demoProfilePicture;
+                  };
+                }
+              }}
+            />
+          </div>
+          <Typography variant="h5">
+            {channel?.snippet?.title}
+            <CheckCircleIcon
+              sx={{ fontSize: "14px", color: "gray", ml: "5px" }}
+              className="channelItem__checkCircle"
+            />
+          </Typography>
+          {channel?.statistics && (
+            <>
+              <Typography
+                sx={{ fontSize: "15px", fontWeight: 500, color: "gray" }}
+              >
+                {channel?.snippet?.description.slice(0, 60)}...
+              </Typography>
+              <Typography
+                sx={{ fontSize: "15px", fontWeight: 500, color: "gray" }}
+              >
+                Subscribers{" "}
+                {parseInt(channel?.statistics?.subscriberCount).toLocaleString(
+                  "en-US"
+                )}
+              </Typography>
+              <Typography
+                sx={{ fontSize: "15px", fontWeight: 500, color: "gray" }}
+              >
+                Views{" "}
+                {parseInt(channel?.statistics?.viewCount).toLocaleString(
+                  "en-US"
+                )}
+              </Typography>
+            </>
+          )}
+        </CardContent>
+      </Link>
+    </Box>
+  );
+}
+
+export default ChannelItem;
+.navbar__link {
+  display: flex;
+  align-items: center;
+}
+import React, { useEffect, useState } from "react";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+} from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import logo from "../../images/logo.png";
+import SearchBar from "../SearchBar/SearchBar";
+
+import "./navbar.css";
+import { useDispatch } from "react-redux";
+import { setRegionCodeReduser } from "../../reduser/videosReduser";
+import { homePath } from "../../utils/pathConstants";
+
+function Navbar() {
+  const [regionCode, setRegionCode] = useState("US");
+
+  const dispatch = useDispatch();
+
+  const { path } = useLocation();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(setRegionCodeReduser(regionCode));
+  }, [regionCode]);
+
+  function inputPrevention() {
+    if (path !== homePath) {
+      navigate(homePath);
+    }
+  }
+
+  return (
+    <Stack
+      direction="row"
+      alignItems="center"
+      p={2}
+      sx={{
+        position: "sticky",
+        background: "#000",
+        top: 0,
+        justifyContent: "space-between",
+        zIndex: 2,
+      }}
+    >
+      <Link to={homePath} className="navbar__link">
+        <img src={logo} alt="logo" height={45} />
+      </Link>
+      <SearchBar inputPrevention={inputPrevention} />
+
+      <Select
+        sx={{
+          color: "darck",
+          backgroundColor: "#84dcff",
+          borderRadius: "25px",
+          ".MuiSelect-select": { padding: "10px" },
+        }}
+        labelId="region-code-label"
+        id="region-code-label"
+        value={regionCode}
+        label="Region"
+        onChange={(e) => {
+          setRegionCode(e.target.value);
+        }}
+        onClick={inputPrevention}
+      >
+        <MenuItem defaultChecked name="United States" value="US">
+          United States
+        </MenuItem>
+        <MenuItem name="Russia" value="RU">
+          Russia
+        </MenuItem>
+        <MenuItem name="Uzbekistan" value="UZ">
+          Uzbekistan
+        </MenuItem>
+        <MenuItem name="Antarctica" value="AQ">
+          Antarctica
+        </MenuItem>
+      </Select>
+    </Stack>
+  );
+}
+
+export default Navbar;
+.ribbon__video-them {
+  color: #84dcff;
+}
+import React, { useEffect, useMemo, useState } from "react";
+import { Box, Stack, Typography } from "@mui/material";
+import "./ribbon.css";
+import { useSelector, useDispatch } from "react-redux";
+import SidePanel from "../SidePanel/SidePanel";
+import Video from "../Video/Video";
+import { getSuggestedVideos } from "../../api/videoApi";
+import {
+  addSuddestedVido,
+  setSearchTermReduser,
+} from "../../reduser/videosReduser";
+
+function Ribbon() {
+  const dispatch = useDispatch();
+
+  const suggestedVideos = useSelector(
+    (state) => state.videos.suddestedVidos?.items
+  );
+  const searchTerm = useSelector((state) => state.videos.searchTerm);
+  const region = useSelector((state) => state.videos.regionCode);
+
+  const [categorySelect, setCategorySelect] = useState("New");
+  const [previousValues, setPreviousValues] = useState({
+    searchTerm: "",
+    category: categorySelect,
+  });
+
+  const dependencyRequests = useMemo(() => {
+    if (categorySelect !== previousValues.category) {
+      setPreviousValues((state) => ({
+        ...state,
+        searchTerm: "",
+        category: categorySelect,
+      }));
+      return categorySelect;
+    }
+
+    if (searchTerm !== previousValues.searchTerm) {
+      setPreviousValues((state) => ({
+        ...state,
+        searchTerm: searchTerm,
+        category: "",
+      }));
+      return searchTerm;
+    }
+
+    return !!searchTerm ? searchTerm : categorySelect;
+  }, [categorySelect, searchTerm]);
+
+  useEffect(() => {
+    if (!!!previousValues.searchTerm)
+      dispatch(setSearchTermReduser(previousValues.searchTerm));
+
+    if (!!!previousValues.category) setCategorySelect(previousValues.category);
+  }, [dependencyRequests]);
+
+  useEffect(() => {
+    getSuggestedVideos(dependencyRequests, region)
+      .then((res) => {
+        if (res.status === 200) return res.data;
+        throw res.error?.message || "Get suggested videos error";
+      })
+      .then((resData) => dispatch(addSuddestedVido(resData)))
+      .catch((e) => alert(e));
+  }, [dependencyRequests, region]);
+
+  return (
+    <Stack
+      className="ribbon"
+      sx={{ flexDirection: { sx: "column", md: "row" } }}
+    >
+      <Box
+        sx={{
+          height: {
+            sx: "auto",
+            md: "92vh",
+          },
+          borderRight: "1px solid #3d3d3d",
+          px: {
+            sx: 0,
+            md: 2,
+          },
+        }}
+      >
+        <SidePanel
+          setCategorySelect={setCategorySelect}
+          categorySelect={categorySelect}
+        />
+        <Typography
+          className="ribbon__copiright"
+          variant="body2"
+          sx={{ mt: 1.5, color: "#fff" }}
+        >
+          Copiright 2023 video-hosting
+        </Typography>
+      </Box>
+      <Box
+        pt={2}
+        sx={{
+          overflowY: "auto",
+          height: "90vh",
+          flex: 2,
+          width: "100%",
+        }}
+      >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          mb={2}
+          sx={{ color: "white", textAlign: "center" }}
+        >
+          {!!searchTerm ? (
+            <>
+              Found <span className="ribbon__video-them">{searchTerm}</span>{" "}
+              video
+            </>
+          ) : (
+            <>
+              {categorySelect} <span className="ribbon__video-them">video</span>
+            </>
+          )}
+        </Typography>
+        <Video videos={suggestedVideos} />
+      </Box>
+    </Stack>
+  );
+}
+
+export default Ribbon;
+.videoDetail {
+  min-height: 95vh;
+}
+
+.videoDetail__box {
+  width: 100%;
+  position: sticky;
+  top: 86px;
+}
+
+@media (max-width: 520px) {
+  .search-bar__input {
+    max-width: 80px;
+  }
+}
+import React, { useEffect, useState } from "react";
+import { Paper, IconButton } from "@mui/material";
+import { Search } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchTermReduser } from "../../reduser/videosReduser";
+import "./searchBar.css";
+
+function SearchBar({ inputPrevention }) {
+  const searchTerm = useSelector((state) => state.videos.searchTerm);
+
+  const [searchTermInput, setSearchTermInput] = useState("");
+
+  const dispatch = useDispatch();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (searchTermInput) {
+      dispatch(setSearchTermReduser(searchTermInput));
+    }
+  }
+
+  useEffect(() => {
+    if (searchTermInput !== searchTerm) setSearchTermInput(searchTerm);
+  }, [searchTerm]);
+
+  return (
+    <Paper
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        borderRadius: 20,
+        border: "1px solid #e3e3e3",
+        pl: 2,
+        boxShadow: "none",
+        zIndex: 2,
+        backgroundColor: "#efefef",
+      }}
+      onClick={inputPrevention}
+    >
+      <input
+        className="search-bar__input"
+        placeholder="Search"
+        value={searchTermInput}
+        onChange={(e) => {
+          setSearchTermInput(e.target.value);
+        }}
+      />
+      <IconButton type="submit" sx={{ p: "10px", color: "#84dcff" }}>
+        <Search />
+      </IconButton>
+    </Paper>
+  );
+}
+
+export default SearchBar;
+.sidePanel__category-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 50px;
+  border: none;
+  padding: 5px;
+  box-sizing: border-box;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.sidePanel__category-icon {
+  margin-right: 5px;
+}
+
+.sidePanel__category-btn_select {
+  background-color: #84dcff;
+}
+
+.sidePanel__category-btn:hover {
+  background-color: #84dcff;
+}
+import React from "react";
+import { Stack } from "@mui/material";
+import { categories } from "../../utils/constans";
+import "./sidePanel.css";
+
+function SidePanel({ setCategorySelect, categorySelect }) {
+  return (
+    <Stack
+      className="sidePanel"
+      direction="row"
+      sx={{
+        overflow: "auto",
+        height: { sx: "auto", md: "95%" },
+        flexDirection: { md: "column" },
+      }}
+    >
+      {categories.map((elem) => (
+        <button
+          key={elem.name}
+          className={`sidePanel__category-btn ${
+            categorySelect === elem.name && "sidePanel__category-btn_select"
+          }`}
+          onClick={() => setCategorySelect(elem.name)}
+        >
+          <span className="sidePanel__category-icon">{elem.icon}</span>
+          <span className="sidePanel__category-name">{elem.name}</span>
+        </button>
+      ))}
+    </Stack>
+  );
+}
+
+export default SidePanel;
+import React from "react";
+import { useSelector } from "react-redux";
+import { Stack, Box } from "@mui/material";
+
+import "./video.css";
+import VideoItem from "../VideoItem/VideoItem";
+import ChannelItem from "../ChannelItem/ChannelItem";
+
+function Video({ videos, direction, id }) {
+  return (
+    <Stack
+      direction={direction || "row"}
+      flexWrap="wrap"
+      justifyContent="center"
+      alignItems="center"
+      width="auto"
+      gap={2}
+    >
+      {(!!id
+        ? videos?.filter((elem) => {
+            return elem.id.videoId !== id;
+          })
+        : videos
+      )?.map((elem, index) => (
+        <div key={index}>
+          {!!!elem.id.playlistId && (
+            <Box>
+              {elem.id.videoId && <VideoItem video={elem} />}
+              {elem.id.channelId && <ChannelItem channel={elem} />}
+            </Box>
+          )}
+        </div>
+      ))}
+    </Stack>
+  );
+}
+
+export default Video;
+.videoDetail__typography {
+  color: #fff;
+  font-weight: bold;
+}
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
+import { Box, Typography, Stack } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
+import Video from "../Video/Video";
+
+import "./videoDetail.css";
+import { getVideoDetails } from "../../api/videoApi";
+import { useDispatch, useSelector } from "react-redux";
+import { addDetailsVideo } from "../../reduser/videosReduser";
+
+function VideoDetail() {
+  const videoDetail = useSelector(
+    (state) => state.videos.detailsVideo.items?.[0]
+  );
+  const suggestedVideos = useSelector(
+    (state) => state.videos.suddestedVidos?.items
+  );
+
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getVideoDetails(id)
+      .then((res) => {
+        if (res.status !== 200) {
+          throw res.error?.message || "Get error";
+        }
+        return res.data;
+      })
+      .then((resData) => dispatch(addDetailsVideo(resData)))
+      .catch((e) => alert(e));
+  }, [id]);
+
+  return (
+    <Box className="videoDetail">
+      <Stack direction={{ xs: "column", md: "row" }}>
+        <Box flex={1}>
+          <Box
+            sx={{
+              width: "100%",
+              position: "sticky",
+              top: "86px",
+            }}
+          >
+            <ReactPlayer
+              url={`https://www.youtube.com/watch?v=${id}`}
+              className="react-player"
+              controls
+            />
+            <Typography color="#fff" variant="h5" fontWeight="bold" p={2}>
+              {videoDetail?.snippet?.title}
+            </Typography>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              sx={{ color: "#fff" }}
+              py={1}
+              px={2}
+            >
+              <Link to={`/channel/${videoDetail?.snippet?.channelId}`}>
+                <Typography
+                  variantMapping={{ sm: "subtitle1", md: "h6" }}
+                  color="#fff"
+                >
+                  {videoDetail?.snippet?.thumbnails?.channelTitle}
+                  <CheckCircleIcon
+                    sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
+                  />
+                </Typography>
+              </Link>
+              <Stack direction="row" gap="20px" alignItems="center">
+                <Typography variant="body1" sx={{ opacity: 0.7 }}>
+                  {parseInt(
+                    videoDetail?.statistics?.viewCount || 0
+                  ).toLocaleString()}{" "}
+                  views
+                </Typography>
+                <Typography variant="body1" sx={{ opacity: 0.7 }}>
+                  {parseInt(
+                    videoDetail?.statistics?.likeCount || 0
+                  ).toLocaleString()}{" "}
+                  likes
+                </Typography>
+              </Stack>
+            </Stack>
+          </Box>
+        </Box>
+        <Box
+          px={2}
+          py={{ md: 1, xs: 5 }}
+          justifyContent="center"
+          alignItems="center"
+          overflow="hidden"
+        >
+          <Video videos={suggestedVideos} direction="column" id={id} />
+        </Box>
+      </Stack>
+    </Box>
+  );
+}
+
+export default VideoDetail;
+.videoItem__card {
+  height: 180px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.videoItem__card-image {
+  width: 100%;
+}
+
+.videoItem__card-content {
+  background-color: #1e1e1e;
+  height: 106px;
+}
+
+.videoItem__card-typography {
+  font-weight: bold;
+  color: gray;
+}
+
+.videoItem__card-checkCircle {
+  font-size: 12px;
+  color: gray;
+  margin-left: 5px;
+}
+import React from "react";
+import { Link } from "react-router-dom";
+import { Typography, Card, CardContent, CardMedia } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
+import "./videoItem.css";
+
+import {
+  demoThumbnailUrl,
+  demoVideoUrl,
+  demoVideoTitle,
+  demoChannelTitle,
+} from "../../utils/constans";
+
+function VideoItem({
+  video: {
+    id: { videoId },
+    snippet,
+  },
+}) {
+  function scrollToZero() {
+    window.scrollTo(0, 0);
+  }
+  return (
+    <Card
+      className="videoItem"
+      sx={{
+        width: { xs: "100%", sm: "358px", md: "320px" },
+        boxShadow: "none",
+        borderRadius: "10px",
+      }}
+      onClick={scrollToZero}
+    >
+      <Link to={videoId ? `/video/${videoId}` : demoThumbnailUrl}>
+        {/* <CardMedia
+          className="videoItem__card"
+          image={
+            snippet?.thumbnails?.high?.url ||
+            snippet?.thumbnails?.medium?.url ||
+            snippet?.thumbnails?.standard?.url
+          }
+          alt={snippet?.title}
+          component="img"
+          sx={{ width: { xs: "100%", sm: "358px" }, height: 180 }}
+        /> */}
+        <div className="videoItem__card">
+          <img
+            className="videoItem__card-image"
+            src={
+              snippet?.thumbnails?.high?.url ||
+              snippet?.thumbnails?.medium?.url ||
+              snippet?.thumbnails?.standard?.url
+            }
+            alt={snippet?.title}
+          />
+        </div>
+      </Link>
+      <CardContent className="videoItem__card-content">
+        <Link to={videoId ? `/channel/${videoId}` : demoVideoUrl}>
+          <Typography variant="subtitle1" fontWeight="bold" color="#FFF">
+            {snippet?.title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
+          </Typography>
+        </Link>
+        <Link to={videoId ? `/channel/${snippet?.channelid}` : demoVideoUrl}>
+          <Typography
+            className="videoItem__card-typography"
+            variant="subtitle2"
+            color="gray"
+          >
+            {snippet?.channelTitle.slice(0, 60) ||
+              demoChannelTitle.slice(0, 60)}
+            <CheckCircleIcon
+              sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
+              className="videoItem__card-checkCircle"
+            />
+          </Typography>
+        </Link>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default VideoItem;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(114, 113, 113);
+  border-radius: 10px;
+  height: 200px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.category-btn:hover {
+  background-color: #fc1503 !important;
+  color: white !important;
+}
+
+.category-btn:hover span {
+  color: white !important;
+}
+
+.react-player {
+  height: 77vh !important;
+  width: 100% !important;
+}
+
+.search-bar {
+  border: none;
+  outline: none;
+  width: 350px;
+}
+
+.category-btn {
+  font-weight: bold !important;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: none;
+
+  padding: 7px 15px;
+  margin: 10px 0px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 900px) {
+  .category-btn {
+    margin: 10px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .copyright {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .scroll-horizontal {
+    overflow: auto !important;
+  }
+
+  .react-player {
+    height: 45vh !important;
+  }
+  .search-bar {
+    width: 200px;
+  }
+}
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./components/App/App";
+import { BrowserRouter } from "react-router-dom";
+import { store } from "./reduser";
+import { Provider } from "react-redux";
+import "./index.css";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
+  </Provider>
+);
+const CHANNELDETAIL = "CHANNELDETAIL";
+const CHANNELVIDEOS = "CHANNELVIDEOS";
+
+const defaultState = {
+  channelDetail: {},
+  channelVideos: {},
+};
+
+export default function channelDetailReduser(state = defaultState, action) {
+  switch (action.type) {
+    case CHANNELDETAIL:
+      return { ...state, channelDetail: action.payload };
+    case CHANNELVIDEOS:
+      return { ...state, channelVideos: action.payload };
+
+    default:
+      return state;
+  }
+}
+
+export const addDetailChannel = (detail) => ({
+  type: CHANNELDETAIL,
+  payload: detail,
+});
+
+export const addVideosChannel = (videos) => ({
+  type: CHANNELVIDEOS,
+  payload: videos,
+});
+import { applyMiddleware, combineReducers, createStore, compose } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import channelDetailReduser from "./channelReduser";
+import videosReduser from "./videosReduser";
+
+const rootReduser = combineReducers({
+  videos: videosReduser,
+  channel: channelDetailReduser,
+});
+
+export const store = createStore(
+  rootReduser,
+  compose(applyMiddleware(thunk), composeWithDevTools())
+);
+const SUGGESTED = "SUGGESTED";
+const SEARCHVIDEO = "SEARCHVIDEO";
+const VIDEODETAILS = "VIDEODETAILS";
+const SEARCHTERM = "SEARCHTERM";
+const SETREGIONCODE = "SETREGIONCODE";
+
+const defaultState = {
+  suddestedVidos: {},
+  searchVideo: {},
+  detailsVideo: {},
+  searchTerm: "",
+  regionCode: "US",
+};
+
+export default function videosReduser(state = defaultState, action) {
+  switch (action.type) {
+    case SUGGESTED:
+      return { ...state, suddestedVidos: action.payload };
+
+    case SEARCHVIDEO:
+      return { ...state, searchVideo: action.payload };
+
+    case VIDEODETAILS:
+      return { ...state, detailsVideo: action.payload };
+
+    case SEARCHTERM:
+      return { ...state, searchTerm: action.payload };
+
+    case SETREGIONCODE:
+      return { ...state, regionCode: action.payload };
+
+    default:
+      return state;
+  }
+}
+
+export const addSuddestedVido = (videos) => ({
+  type: SUGGESTED,
+  payload: videos,
+});
+
+export const addSearchVideo = (videos) => ({
+  type: SEARCHVIDEO,
+  payload: videos,
+});
+
+export const addDetailsVideo = (video) => ({
+  type: VIDEODETAILS,
+  payload: video,
+});
+
+export const setSearchTermReduser = (term) => ({
+  type: SEARCHTERM,
+  payload: term,
+});
+
+export const setRegionCodeReduser = (region) => ({
+  type: SETREGIONCODE,
+  payload: region,
+});
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import HomeIcon from "@mui/icons-material/Home";
+import CodeIcon from "@mui/icons-material/Code";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
+import SchoolIcon from "@mui/icons-material/School";
+import FaceRetouchingNaturalIcon from "@mui/icons-material/FaceRetouchingNatural";
+import CheckroomIcon from "@mui/icons-material/Checkroom";
+import GraphicEqIcon from "@mui/icons-material/GraphicEq";
+import TheaterComedyIcon from "@mui/icons-material/TheaterComedy";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import DeveloperModeIcon from "@mui/icons-material/DeveloperMode";
+
+export const categories = [
+  { name: "New", icon: <HomeIcon /> },
+  { name: "Coding", icon: <CodeIcon /> },
+  { name: "ReactJS", icon: <CodeIcon /> },
+  { name: "NextJS", icon: <CodeIcon /> },
+  { name: "Music", icon: <MusicNoteIcon /> },
+  { name: "Education", icon: <SchoolIcon /> },
+  { name: "Podcast", icon: <GraphicEqIcon /> },
+  { name: "Movie", icon: <OndemandVideoIcon /> },
+  { name: "Gaming", icon: <SportsEsportsIcon /> },
+  { name: "Live", icon: <LiveTvIcon /> },
+  { name: "Sport", icon: <FitnessCenterIcon /> },
+  { name: "Fashion", icon: <CheckroomIcon /> },
+  { name: "Beauty", icon: <FaceRetouchingNaturalIcon /> },
+  { name: "Comedy", icon: <TheaterComedyIcon /> },
+  { name: "Gym", icon: <FitnessCenterIcon /> },
+  { name: "Crypto", icon: <DeveloperModeIcon /> },
+];
+
+export const demoThumbnailUrl = "https://i.ibb.co/G2L2Gwp/API-Course.png";
+export const demoChannelUrl = "/channel/UCmXmlB4-HJytD7wek0Uo97A";
+export const demoVideoUrl = "/video/GDa8kZLNhJ4";
+export const demoChannelTitle = "JavaScript Mastery";
+export const demoVideoTitle =
+  "Build and Deploy 5 JavaScript & React API Projects in 10 Hours - Full Course | RapidAPI";
+export const demoProfilePicture =
+  "http://dergipark.org.tr/assets/app/images/buddy_sample.png";
+export const homePath = "//video-hosting";
+export const videoIdPath = "/video/:id";
+export const channelIdPath = "/channel/:id";
